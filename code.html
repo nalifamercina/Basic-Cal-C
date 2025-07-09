@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calculator {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      width: 260px;
+    }
+    #result {
+      width: 100%;
+      height: 40px;
+      font-size: 20px;
+      text-align: right;
+      margin-bottom: 10px;
+      padding: 5px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    button {
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 4px;
+      background-color: #e0e0e0;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #d5d5d5;
+    }
+    .equal {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .clear {
+      background-color: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="result" disabled>
+    <div class="buttons">
+      <button onclick="appendValue('7')" aria-label="7">7</button>
+      <button onclick="appendValue('8')" aria-label="8">8</button>
+      <button onclick="appendValue('9')" aria-label="9">9</button>
+      <button onclick="appendValue('/')" aria-label="divide">÷</button>
+      <button onclick="appendValue('4')" aria-label="4">4</button>
+      <button onclick="appendValue('5')" aria-label="5">5</button>
+      <button onclick="appendValue('6')" aria-label="6">6</button>
+      <button onclick="appendValue('*')" aria-label="multiply">×</button>
+      <button onclick="appendValue('1')" aria-label="1">1</button>
+      <button onclick="appendValue('2')" aria-label="2">2</button>
+      <button onclick="appendValue('3')" aria-label="3">3</button>
+      <button onclick="appendValue('-')" aria-label="subtract">−</button>
+      <button onclick="appendValue('0')" aria-label="0">0</button>
+      <button onclick="appendValue('.')" aria-label="decimal">.</button>
+      <button onclick="calculate()" class="equal" aria-label="equals">=</button>
+      <button onclick="appendValue('+')" aria-label="add">+</button>
+      <button onclick="clearResult()" class="clear" aria-label="clear">C</button>
+    </div>
+  </div>
+  <script>
+    let resultField = document.getElementById('result');
+    function appendValue(value) {
+      resultField.value += value;
+    }
+    function calculate() {
+      try {
+        // Use Function constructor for safer evaluation
+        resultField.value = new Function('return ' + resultField.value)();
+      } catch {
+        resultField.value = 'Error';
+      }
+    }
+    function clearResult() {
+      resultField.value = '';
+    }
+  </script>
+</body>
+</html>
